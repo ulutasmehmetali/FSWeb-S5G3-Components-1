@@ -90,6 +90,10 @@ const data = [
   }
 ];
 
+
+
+
+
 /*
   Adım 1: Haber oluşturmak için 'haberYapici' adında bir bileşen(component) oluşturun.
   Bileşeniniz, argümanı haberleri içeren dizi olarak alan bir fonksiyon olacak,
@@ -104,6 +108,8 @@ const data = [
     <span class="expandButton">+</span>
   </div>
 
+  
+
   Adım 2: Hala `haberYapici` içindeyiz, span.expandButton 'a bir click event dinleyici ekleyin.
   Bu dinleyici div.article öğesine 'article-open' class'ını ekleyip/çıkaracak (toogle).
 
@@ -115,3 +121,81 @@ const data = [
   Adım 5: Veri dizisine yeni haber nesnesi eklemeyi deneyin. Diğer verilerle aynı yapıda olmasına dikkat edin.
   Eklediğiniz yeni haberi görmek için sayfayı yenileyin.
 */
+
+
+function haberYapici(haber) {
+  // Haber için gerekli DOM düğümlerini oluşturun
+  const articleDiv = document.createElement("div");
+  articleDiv.className = "article";
+
+  const baslikH2 = document.createElement("h2");
+  baslikH2.textContent = haber.baslik;
+
+  const tarihP = document.createElement("p");
+  tarihP.className = "tarih";
+  tarihP.textContent = haber.tarih;
+
+  const ilkParagraf = document.createElement("p");
+  ilkParagraf.textContent = haber.ilkParagraf;
+
+  const ikinciParagraf = document.createElement("p");
+  ikinciParagraf.textContent = haber.ikinciParagraf;
+
+  const ucuncuParagraf = document.createElement("p");
+  ucuncuParagraf.textContent = haber.ucuncuParagraf;
+
+  const expandButton = document.createElement("span");
+  expandButton.className = "expandButton";
+  expandButton.textContent = "+";
+
+  // expandButton'a click event dinleyici ekleyin
+  expandButton.addEventListener("click", function () {
+    articleDiv.classList.toggle("article-open");
+  });
+
+  // Oluşturulan düğümleri articleDiv'e ekleyin
+  articleDiv.appendChild(baslikH2);
+  articleDiv.appendChild(tarihP);
+  articleDiv.appendChild(ilkParagraf);
+  articleDiv.appendChild(ikinciParagraf);
+  articleDiv.appendChild(ucuncuParagraf);
+  articleDiv.appendChild(expandButton);
+
+  // articleDiv'i döndürün
+  return articleDiv;
+}
+
+// Veri dizisini döngüye sokarak haberleri oluşturun
+const haberlerDiv = document.createElement("div");
+haberlerDiv.className = "articles";
+
+for (let i = 0; i < data.length; i++) {
+  const haberDiv = haberYapici(data[i]);
+  haberlerDiv.appendChild(haberDiv);
+}
+
+
+// haberlerDiv'i sayfadaki hedef elemente ekleyin (index.html'de bir div.articles öğesi olduğunu varsayıyoruz)
+const hedefElement = document.querySelector(".articles");
+hedefElement.appendChild(haberlerDiv);
+
+// Adım 5: Veri dizisine yeni haber nesnesi eklemeyi deneyin. Diğer verilerle aynı yapıda olmasına dikkat edin.
+// Eklediğiniz yeni haberi görmek için sayfayı yenileyin.
+const yeniHaber = {
+  baslik: "Yeni Haber Başlığı",
+  tarih: "2022-11-01",
+  ilkParagraf: "Yeni haberin içeriği...",
+  ikinciParagraf: "Yeni haberin devamı...",
+  ucuncuParagraf: "Yeni haberin sonu...",
+};
+
+data.push(yeniHaber);
+
+
+
+
+
+
+
+
+
